@@ -19,7 +19,7 @@ jobs:
           coverage report -m -i
 
   build-documentation:
-    needs: unit-tests"
+    needs: unit-tests
     runs-on: ubuntu-latest
     steps: 
       - uses: actions/checkout@v2
