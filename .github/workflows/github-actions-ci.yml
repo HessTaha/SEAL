@@ -1,5 +1,5 @@
 name: seal-unit-test
-on: push
+on: push # define branch/condiftions
 jobs:
   unit-tests:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
           coverage run -m pytest seal
           coverage report -m -i
 
-  build-documentation:
+  build-documentation: # add pre-commit (flake8, black)
     needs: unit-tests
     runs-on: ubuntu-latest
     steps: 
@@ -40,4 +40,16 @@ jobs:
         with: 
           name: documentation
           path: doc/build
-          retention_days: 1
+          retention-days: 1
+
+  deploy-package: # to define
+    needs: build-documentation
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Install Python 3
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Deploy
+        run: python --version
