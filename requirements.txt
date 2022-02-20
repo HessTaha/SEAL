@@ -4,7 +4,7 @@ frozendict==2.0.2
 pytest==6.2.2
 pytest-cov==2.11.1
 scikit-learn==0.24.1
-scipy==1.7.0
+scipy==1.6
 pandas==1.1.5
 numpy==1.19.5
 tabulate==0.8.9
