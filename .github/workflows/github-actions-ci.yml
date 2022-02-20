@@ -1,7 +1,7 @@
 name: seal-unit-test
 on: push
 jobs:
-  build:
+  unit-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,5 +15,28 @@ jobs:
           pip install -r requirements.txt
       - name: Run tests with pytest
         run: |
-          coverage run -m pytest
-          coverage report -m
+          coverage run -m pytest seal
+          coverage report -m -i
+
+  build-documentation:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v2
+      - name: Install Python 3
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+      - name: Install spĥinx
+        run: |
+          python -m pip install --upgrade pip
+          pip install sphinx==3.5.4 sphinx-rtd-theme==0.5.2
+      - name: Build documentation
+        run: |
+          sphinx-apidoc -o doc/source seal "**/test**" -f -M
+          make -C doc/ html
+      - name: Archive html documentation
+        uses: actions/upload-artifact@v2
+        with: 
+          name: documentation
+          path: doc/build
+          retention_days: 1

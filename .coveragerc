@@ -2,5 +2,6 @@
 omit=
     __init__.py
     .venv/*
+    /tests/*
 [coverage:report]
 skip_empty=True
